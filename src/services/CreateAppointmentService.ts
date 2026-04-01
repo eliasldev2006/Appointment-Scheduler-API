@@ -1,3 +1,4 @@
+import { startOfHour, isBefore } from 'date-fns';
 import { Appointment } from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
@@ -17,16 +18,15 @@ class CreateAppointmentService {
   }
 
   public execute({ providerId, customerId, date, time, service }: Request): Appointment {
-    
-    const allAppointments = this.appointmentsRepository.all();
-    
-    const findAppointmentInSameTime = allAppointments.find(
-      appointment => 
-        appointment.date.getTime() === date.getTime() && 
-        appointment.time === time &&
-        appointment.providerId === providerId
-    );
 
+    const appointmentDate = startOfHour(date);
+
+    if (isBefore(appointmentDate, new Date())) {
+      throw Error('Não é permitido criar um agendamento em uma data passada!'); 
+    }
+
+    const findAppointmentInSameTime = this.appointmentsRepository.all().find(appointment =>
+      appointment.date.getTime() === appointmentDate.getTime());
 
     if (findAppointmentInSameTime) {
       throw Error('Este profissional já possui um agendamento para este horário!');
