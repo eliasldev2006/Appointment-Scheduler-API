@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+database:
+image: postgres:latest
+
+container_name: appointment_scheduler_db
+
+restart: always
+
+enviroment: 
+POSTGRES_USER: postgres
+POSTGRES_PASSWORD: docker
+POSTGRES_DB: appointment_scheduler
+ports:
+- "5432:5432"
