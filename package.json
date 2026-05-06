@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-  "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-  "typeorm": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "date": "^2.0.6",
     "date-fns": "^4.1.0",
     "express": "^4.18.2",
@@ -16,6 +17,7 @@
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.6",
     "@types/node": "^20.11.0",
     "ts-node-dev": "^2.0.0",
